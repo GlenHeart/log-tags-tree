@@ -1392,6 +1392,13 @@
   optionalDependencies:
     prettier "^1.18.2"
 
+"@vue/composition-api@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.nlark.com/@vue/composition-api/download/@vue/composition-api-1.0.5.tgz#c7cef457284096e75cc0894e0cb9a251f91eba3f"
+  integrity sha1-x870VyhAludcwIlODLmiUfkeuj8=
+  dependencies:
+    tslib "^2.3.0"
+
 "@vue/eslint-config-standard@^5.1.2":
   version "5.1.2"
   resolved "https://registry.nlark.com/@vue/eslint-config-standard/download/@vue/eslint-config-standard-5.1.2.tgz?cache=0&sync_timestamp=1627637315759&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40vue%2Feslint-config-standard%2Fdownload%2F%40vue%2Feslint-config-standard-5.1.2.tgz#c5d55af894a3ae23b65b1af4a425777ac0170b42"
@@ -8110,6 +8117,11 @@ tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.nlark.com/tslib/download/tslib-1.14.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftslib%2Fdownload%2Ftslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
+
+tslib@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.nlark.com/tslib/download/tslib-2.3.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftslib%2Fdownload%2Ftslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha1-gDuM2rPhK6WBpMpByIObuw2ssJ4=
 
 tty-browserify@0.0.0:
   version "0.0.0"

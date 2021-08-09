@@ -1,28 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div id="app"><log-tags-tree :swim-pane="swimPaneList"/></div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import LogTagsTree from './components/log-tags-tree.vue'
+import { ref } from '@vue/composition-api'
 export default {
   name: 'App',
+  setup () {
+    const swimPaneList = ref([{
+      name: '事件',
+      ties: ['TOTAL']
+    }, {
+      name: '前台(BAS,MAS)',
+      ties: ['BAS', 'MAS']
+    }, {
+      name: '聚合中台(AMTS)',
+      ties: ['AMTS']
+    }, {
+      name: '业务中台(BMTS)',
+      ties: ['BMTS']
+    }, {
+      name: '业务主数据中台(MDS)',
+      ties: ['MDS']
+    }, {
+      name: '基础主数据中台(MDS)',
+      ties: ['MDS']
+    }])
+    return {
+      swimPaneList
+    }
+  },
   components: {
-    HelloWorld
+    LogTagsTree
   }
 }
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 500px;
 }
 </style>
