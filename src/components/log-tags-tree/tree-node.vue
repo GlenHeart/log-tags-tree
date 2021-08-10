@@ -1,12 +1,11 @@
 <template>
 <div>
-  123
-  <!-- <div v-if="$slot.default">
+  <div v-if="$slots.default">
     <slot></slot>
   </div>
-  <div else>
+  <div v-else>
     1234
-  </div> -->
+  </div>
 </div>
 </template>
 <script>

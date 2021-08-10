@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="log-tags--tree">
-      <tree-node v-for="(node, index) in treeNodes" :node-data="node" :key="index"></tree-node>
+      <tree-node v-for="(node, index) in treeNodes" :node-data="node" :key="index">456</tree-node>
     </div>
   </div>
 </template>
@@ -30,10 +30,8 @@ export default {
     swimPane: [Array],
     treeNodes: [Array]
   },
-  setup () {
-    console.log(TreeNode, 'treeNodes')
-  },
-  componnets: {
+  setup () {},
+  components: {
     TreeNode
   }
 }
