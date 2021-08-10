@@ -20,5 +20,9 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 功能
+
+支持滚动加载，虚拟滚动
+支持中心模式，tree模式
+可以自定义节点
+支持添加泳道

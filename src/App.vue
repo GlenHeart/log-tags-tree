@@ -1,13 +1,16 @@
 <template>
-  <div id="app"><log-tags-tree :swim-pane="swimPaneList"/></div>
+  <div id="app"><log-tags-tree :swim-pane="swimPaneList" :tree-nodes="treeNodes"/></div>
 </template>
 
 <script>
-import LogTagsTree from './components/log-tags-tree.vue'
+import LogTagsTree from './components/log-tags-tree/index.vue'
 import { ref } from '@vue/composition-api'
+import testList from '../mock.json'
+
 export default {
   name: 'App',
   setup () {
+    const treeNodes = ref(testList.data)
     const swimPaneList = ref([{
       name: '事件',
       ties: ['TOTAL']
@@ -28,7 +31,8 @@ export default {
       ties: ['MDS']
     }])
     return {
-      swimPaneList
+      swimPaneList,
+      treeNodes
     }
   },
   components: {

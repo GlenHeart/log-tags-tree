@@ -9,20 +9,32 @@
         <div class="log-tags-swim-pane-item--header">
           {{ head.name }}
           <div v-if="head.ties.length > 0" class="fold-btns">
-            <el-button type="text" @click="expand(head.ties)">展开</el-button>
-            <el-button type="text" @click="fold(head.ties)">折叠</el-button>
+            <span type="text" @click="expand(head.ties)">展开</span>
+            <span type="text" @click="fold(head.ties)">折叠</span>
           </div>
         </div>
       </div>
+    </div>
+    <div class="log-tags--tree">
+      <tree-node v-for="(node, index) in treeNodes" :node-data="node" :key="index"></tree-node>
     </div>
   </div>
 </template>
 
 <script>
+import TreeNode from './tree-node.vue'
+
 export default {
   name: 'LogTagsTree',
   props: {
-    swimPane: [Array]
+    swimPane: [Array],
+    treeNodes: [Array]
+  },
+  setup () {
+    console.log(TreeNode, 'treeNodes')
+  },
+  componnets: {
+    TreeNode
   }
 }
 </script>
