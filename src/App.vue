@@ -5,9 +5,7 @@
     v-loading="loading"
     ref="swimingLane"
   >
-    <div
-      style="height: calc(100% - 90px); overflowx: auto; background: #fff"
-    >
+    <div style="height: calc(100% - 90px); overflowx: auto; background: #fff">
       <div style="position: relative; height: 100%">
         <div style="display: flex" class="origin-column">
           <div
@@ -29,7 +27,6 @@
         <div
           ref="wrapper"
           style="
-            overflow: scroll;
             min-height: 200px;
             padding-top: 20px;
             height: calc(100% - 50px);
@@ -41,13 +38,9 @@
         >
           <div
             id="wrapper"
-            v-infinite-scroll="load"
-            infinite-scroll-disabled="testLoading"
-            infinite-scroll-immediate="false"
+            style="height: 100%;"
           >
-            <tag :messageType="successFlag">{{
-              '业务事件'
-            }}</tag>
+            <tag :messageType="successFlag">{{ '业务事件' }}</tag>
             <span class="chain-child-time" v-if="totalApiTime">{{
               `${totalApiTime}ms`
             }}</span>
@@ -60,15 +53,28 @@
             >
             <div class="branch lv1" v-show="visible">
               <div class="branch-line"></div>
-              <child-chain
-                :parentTies="'BAS'"
-                v-for="(item, index) in invocationList"
-                :key="index"
-                :child="item"
-                :sole="invocationList.length === 1"
-                :listLength="invocationList.length"
-                :chainIndex="index"
-              ></child-chain>
+              <DynamicScroller
+                :items="invocationList"
+                :minItemSize="60"
+                style="height: 800px;"
+              >
+                <template v-slot="{ item, index, active }">
+                  <DynamicScrollerItem
+                    :item="item"
+                    :active="active"
+                    :data-index="index"
+                  >
+                    <child-chain
+                      :parentTies="'BAS'"
+                      :key="index"
+                      :child="item"
+                      :sole="invocationList.length === 1"
+                      :listLength="invocationList.length"
+                      :chainIndex="index"
+                    ></child-chain>
+                  </DynamicScrollerItem>
+                </template>
+              </DynamicScroller>
             </div>
           </div>
         </div>
@@ -108,25 +114,32 @@ export default {
       totalTime: '',
       visible: true,
       fullscreenStatus: false,
-      tableHead: [{
-        name: '事件',
-        ties: ['TOTAL']
-      }, {
-        name: '前台(BAS,MAS)',
-        ties: ['BAS', 'MAS']
-      }, {
-        name: '聚合中台(AMTS)',
-        ties: ['AMTS']
-      }, {
-        name: '业务中台(BMTS)',
-        ties: ['BMTS']
-      }, {
-        name: '业务主数据中台(MDS)',
-        ties: ['MDS']
-      }, {
-        name: '基础主数据中台(MDS)',
-        ties: ['MDS']
-      }],
+      tableHead: [
+        {
+          name: '事件',
+          ties: ['TOTAL']
+        },
+        {
+          name: '前台(BAS,MAS)',
+          ties: ['BAS', 'MAS']
+        },
+        {
+          name: '聚合中台(AMTS)',
+          ties: ['AMTS']
+        },
+        {
+          name: '业务中台(BMTS)',
+          ties: ['BMTS']
+        },
+        {
+          name: '业务主数据中台(MDS)',
+          ties: ['MDS']
+        },
+        {
+          name: '基础主数据中台(MDS)',
+          ties: ['MDS']
+        }
+      ],
       apiDetailVisible: false,
       detail: {},
       detailDialogLoad: false,
@@ -154,7 +167,12 @@ export default {
       const invocationList = this.invocationList
       if (!invocationList || invocationList.length === 0) return ''
       return this.invocationList.reduce((acc, cut) => {
-        return acc + parseInt(cut.invokedConsumeTime.slice(0, cut.invokedConsumeTime.length - 2))
+        return (
+          acc +
+          parseInt(
+            cut.invokedConsumeTime.slice(0, cut.invokedConsumeTime.length - 2)
+          )
+        )
       }, 0)
     }
   },
@@ -195,7 +213,7 @@ export default {
     async getInvocationList () {
       this.invocationList = mockData.data || []
       console.log(this.invocationList, '1234')
-      this.successFlag = this.invocationList.every(item => item.successFlag)
+      this.successFlag = this.invocationList.every((item) => item.successFlag)
     },
     async showApiDetail (row) {
       this.apiDetailVisible = true
@@ -221,150 +239,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-@use 'sass:math';
-html,
-body {
-  height: 100%;
-}
-.detail-red {
-  color: red;
-  &:hover {
-    color: red;
-  }
-}
-
-.origin-column {
-  height: 100%;
-  &-item {
-    display: inline-block;
-    background: #fff;
-    height: 100%;
-    min-width: 350px;
-    box-shadow: inset -1px 0 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
-    box-shadow: inset -1px -1px 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
-    &--header {
-      height: 40px;
-      color: #000;
-      line-height: 40px;
-      text-align: center;
-      background: #e9f0fa;
-      box-shadow: inset -1px 0 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
-      &:hover {
-        .fold-btns {
-          display: inline-block;
-        }
-      }
-    }
-    .fold-btns {
-      display: none;
-    }
-  }
-}
-//------- {{ Variables }} -------//
-
-$white: #555;
-$bg: #2e6ba7;
-
-$horizontal-gutter: 100px;
-$border-radius: 0px;
-
-$entry-min-height: 60px;
-
-$label-width: 260px;
-$label-height: 38px;
-$label-border-radius: 5px;
-
-//------- {{ Styles }} -------//
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-#wrapper {
-  position: relative;
-}
-
-.branch {
-  position: relative;
-  margin-left: $horizontal-gutter + $label-width;
-  .branch-line {
-    content: '';
-    width: math.div($horizontal-gutter, 2);
-    border-top: 1px solid $white;
-    position: absolute;
-    left: -$horizontal-gutter;
-    top: 50%;
-    margin-top: 1px;
-  }
-}
-
-.entry {
-  position: relative;
-  min-height: $entry-min-height;
-  & > .before-line {
-    height: 100%;
-    border-left: 1px solid $white;
-    position: absolute;
-    left: -(math.div($horizontal-gutter, 2));
-  }
-  & > .after-line {
-    width: math.div($horizontal-gutter, 2);
-    border-top: 1px solid $white;
-    position: absolute;
-    left: -(math.div($horizontal-gutter, 2));
-    top: 50%;
-  }
-  &.first-entry {
-    & > .before-line {
-      width: $border-radius;
-      height: 50%;
-      top: 50%;
-      border-radius: $border-radius 0 0 0;
-    }
-    & > .after-line {
-      height: $border-radius;
-      border-radius: $border-radius 0 0 0;
-    }
-  }
-  &.last-entry {
-    & > .before-line {
-      width: $border-radius;
-      height: 50%;
-      border-radius: 0 0 0 $border-radius;
-    }
-    & > .after-line {
-      height: $border-radius;
-      border-top: none;
-      border-bottom: 1px solid $white;
-      border-radius: 0 0 0 $border-radius;
-    }
-  }
-  &.sole {
-    & > .before-line {
-      display: none;
-    }
-    & > .after-line {
-      width: math.div($horizontal-gutter, 2);
-      height: 0;
-      border-radius: 0;
-      margin-top: 1px;
-    }
-  }
-}
-
-.label {
-  display: block;
-  min-width: $label-width;
-  line-height: $label-height - 5px * 2;
-  text-align: center;
-  border-radius: $label-border-radius;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  margin-top: math.div(-$label-height, 2);
-}
-</style>
