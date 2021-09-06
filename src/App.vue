@@ -56,7 +56,7 @@
               <DynamicScroller
                 :items="invocationList"
                 :minItemSize="60"
-                style="height: 800px;"
+                style="height: 846px;margin-left: -50px;"
               >
                 <template v-slot="{ item, index, active }">
                   <DynamicScrollerItem

@@ -2,6 +2,7 @@
 html,
 body {
   height: 100%;
+  margin: 0;
 }
 .detail-red {
   color: red;
@@ -142,4 +143,8 @@ $label-border-radius: 5px;
   left: 0;
   top: 50%;
   margin-top: math.div(-$label-height, 2);
+}
+
+.vue-recycle-scroller__item-view > div {
+  padding-left: 50px;
 }
