@@ -1,0 +1,145 @@
+@use 'sass:math';
+html,
+body {
+  height: 100%;
+}
+.detail-red {
+  color: red;
+  &:hover {
+    color: red;
+  }
+}
+
+.origin-column {
+  height: 100%;
+  &-item {
+    display: inline-block;
+    background: #fff;
+    height: 100%;
+    min-width: 350px;
+    box-shadow: inset -1px 0 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
+    box-shadow: inset -1px -1px 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
+    &--header {
+      height: 40px;
+      color: #000;
+      line-height: 40px;
+      text-align: center;
+      background: #e9f0fa;
+      box-shadow: inset -1px 0 0 0 #c2c9df, inset 1px 1px 0 0 #c2c9df;
+      &:hover {
+        .fold-btns {
+          display: inline-block;
+        }
+      }
+    }
+    .fold-btns {
+      display: none;
+    }
+  }
+}
+//------- {{ Variables }} -------//
+
+$white: #555;
+$bg: #2e6ba7;
+
+$horizontal-gutter: 100px;
+$border-radius: 0px;
+
+$entry-min-height: 60px;
+
+$label-width: 260px;
+$label-height: 38px;
+$label-border-radius: 5px;
+
+//------- {{ Styles }} -------//
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#wrapper {
+  position: relative;
+}
+
+.branch {
+  position: relative;
+  margin-left: $horizontal-gutter + $label-width;
+  .branch-line {
+    content: '';
+    width: math.div($horizontal-gutter, 2);
+    border-top: 1px solid $white;
+    position: absolute;
+    left: -$horizontal-gutter;
+    top: 50%;
+    margin-top: 1px;
+  }
+}
+
+.entry {
+  position: relative;
+  min-height: $entry-min-height;
+  & > .before-line {
+    height: 100%;
+    border-left: 1px solid $white;
+    position: absolute;
+    left: -(math.div($horizontal-gutter, 2));
+  }
+  & > .after-line {
+    width: math.div($horizontal-gutter, 2);
+    border-top: 1px solid $white;
+    position: absolute;
+    left: -(math.div($horizontal-gutter, 2));
+    top: 50%;
+  }
+  &.first-entry {
+    & > .before-line {
+      width: $border-radius;
+      height: 50%;
+      top: 50%;
+      border-radius: $border-radius 0 0 0;
+    }
+    & > .after-line {
+      height: $border-radius;
+      border-radius: $border-radius 0 0 0;
+    }
+  }
+  &.last-entry {
+    & > .before-line {
+      width: $border-radius;
+      height: 50%;
+      border-radius: 0 0 0 $border-radius;
+    }
+    & > .after-line {
+      height: $border-radius;
+      border-top: none;
+      border-bottom: 1px solid $white;
+      border-radius: 0 0 0 $border-radius;
+    }
+  }
+  &.sole {
+    & > .before-line {
+      display: none;
+    }
+    & > .after-line {
+      width: math.div($horizontal-gutter, 2);
+      height: 0;
+      border-radius: 0;
+      margin-top: 1px;
+    }
+  }
+}
+
+.label {
+  display: block;
+  min-width: $label-width;
+  line-height: $label-height - 5px * 2;
+  text-align: center;
+  border-radius: $label-border-radius;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: math.div(-$label-height, 2);
+}
