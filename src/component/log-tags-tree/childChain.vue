@@ -9,10 +9,7 @@
     v-if="showNodeBtn"
   >{{child.subInvocationList.length}}</span>
   <span class="chain-child-time" v-if="subTotalApiTime">{{`${subTotalApiTime}ms`}}</span>
-  <popover-tag :messageType="child.successFlag" :ids="child.id">
-    <p style="font-size:13px;">{{child.ties}} {{`${child.apiNo ? child.apiNo : ''}(${child.invokedConsumeTime})`}}</p>
-    <p style="font-size: 13px;" :title="child.apiDesc">{{` ${child.apiDesc}`}}</p>
-  </popover-tag>
+  <slot :tag="child"></slot>
   <div class="branch" v-if="hasBranch" v-show="visible">
     <div class="branch-line"></div>
     <child-chain
@@ -23,12 +20,14 @@
       :listLength="child.subInvocationList.length"
       :parentTies="child.ties"
     >
+    <template slot-scope="{ tag }">
+      <slot :tag="tag"></slot>
+    </template>
     </child-chain>
   </div>
 </div>
 </template>
 <script>
-import popoverTag from './popoverTag'
 import emitter from '@/utils/emitter'
 const API_ORIGIN_MAP = {
   BAS: '0',
@@ -68,9 +67,6 @@ export default {
     parentTies: {
       type: [String, Number]
     }
-  },
-  components: {
-    popoverTag
   },
   created () {
     this.$on('fold', (val) => {

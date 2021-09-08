@@ -148,3 +148,33 @@ $label-border-radius: 5px;
 .vue-recycle-scroller__item-view > div {
   padding-left: 50px;
 }
+
+.tree-wrap {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  .root-node-wrap {
+    position: relative;
+    height: 100%;
+    width: 310px;
+    .root-node {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: $label-height - 5px * 2;
+      width: 100%;
+      .branch-line {
+        width: math.div($horizontal-gutter, 2);
+        border-top: 1px solid $white;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: 1px;
+      }
+    }
+  }
+  .tag-nodes {
+    flex: 1 1 auto;
+  }
+}
