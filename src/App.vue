@@ -59,12 +59,7 @@ export default {
   data () {
     return {
       invocationList: [],
-      soid: '',
-      searchLoading: false,
-      eventList: [],
-      bizDomainList: [],
       successFlag: true,
-      loading: false,
       testLoading: true,
       totalTime: '',
       visible: true,
@@ -95,7 +90,6 @@ export default {
           ties: ['MDS']
         }
       ],
-      apiDetailVisible: false,
       foldStatus: false, // 滚动条在底部，点击折叠会触发加载
       scrollTop: 0,
       scrollTopBeforeFold: 0
@@ -140,14 +134,6 @@ export default {
         this.broadcast('ChildChain', 'fold', [ties])
       }
       this.scrollTopBeforeFold = this.getScrollPos()
-    },
-    load () {
-      if (this.foldStatus) {
-        this.foldStatus = false
-        return
-      }
-      if (this.loading === true) return
-      this.testLoading = true
     },
     async getInvocationList () {
       this.invocationList = mockData.data || []
